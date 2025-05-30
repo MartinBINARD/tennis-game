@@ -13,7 +13,7 @@ public class HealthCheckController {
 
     @GetMapping("/healthcheck")
     public HealthCheck healthcheck() {
-        return healthCheckService.getApplicationStatus();
+        return new HealthCheck(ApplicationStatus.OK, "Welcome to Tennis Game !");
     }
 
 }
