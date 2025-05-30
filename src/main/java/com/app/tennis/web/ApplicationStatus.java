@@ -1,4 +1,4 @@
-package com.app.tennis.rest;
+package com.app.tennis.web;
 
 public enum ApplicationStatus {
     OK, KO;

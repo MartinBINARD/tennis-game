@@ -1,4 +1,4 @@
-package com.app.tennis.rest;
+package com.app.tennis.web;
 
 import com.app.tennis.service.HealthCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
