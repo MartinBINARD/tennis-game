@@ -1,5 +1,7 @@
 package com.app.tennis.web;
 
+import com.app.tennis.ApplicationStatus;
+import com.app.tennis.HealthCheck;
 import com.app.tennis.service.HealthCheckService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
