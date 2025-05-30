@@ -1,6 +1,7 @@
 package com.app.tennis.web;
 
 import com.app.tennis.Player;
+import com.app.tennis.PlayerList;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,8 +28,9 @@ public class PlayerController {
     })
     @GetMapping
     public List<Player> list() {
-        return Collections.emptyList();
+        return PlayerList.ALL;
     }
+
 
     @Operation(summary = "Finds a player", description = "Finds a player")
     @ApiResponses(value = {
@@ -39,9 +41,11 @@ public class PlayerController {
     })
     @GetMapping("{lastName}")
     public Player getByLastName(@PathVariable("lastName") String lastName) {
-        return null;
+        return PlayerList.ALL.stream()
+                .filter(player -> player.lastName().equals(lastName))
+                .findFirst()
+                .orElse(null);
     }
-
     @Operation(summary = "Creates a player", description = "Creates a player")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Created player",
