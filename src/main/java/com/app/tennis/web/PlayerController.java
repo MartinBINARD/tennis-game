@@ -32,12 +32,12 @@ public class PlayerController {
         return PlayerList.ALL;
     }
 
-
     @Operation(summary = "Finds a player", description = "Finds a player")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Player",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Player.class))})
+                            schema = @Schema(implementation = Player.class))}),
+            @ApiResponse(responseCode = "404", description = "Not found")
 
     })
     @GetMapping("{lastName}")
@@ -45,8 +45,9 @@ public class PlayerController {
         return PlayerList.ALL.stream()
                 .filter(player -> player.lastName().equals(lastName))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow();
     }
+    
     @Operation(summary = "Creates a player", description = "Creates a player")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Created player",
