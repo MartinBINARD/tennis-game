@@ -2,6 +2,7 @@ package com.app.tennis.web;
 
 import com.app.tennis.Player;
 import com.app.tennis.PlayerList;
+import com.app.tennis.PlayerToRegister;
 import com.app.tennis.service.PlayerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -59,8 +60,8 @@ public class PlayerController {
 
     })
     @PostMapping
-    public Player createPlayer(@Valid @RequestBody Player player) {
-        return player;
+    public Player createPlayer(@Valid @RequestBody PlayerToRegister playerToRegister) {
+        return playerService.create(playerToRegister);
     }
 
     @Operation(summary = "Updates a player", description = "Updates a player")
