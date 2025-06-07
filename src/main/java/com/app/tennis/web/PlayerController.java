@@ -2,7 +2,7 @@ package com.app.tennis.web;
 
 import com.app.tennis.Player;
 import com.app.tennis.PlayerList;
-import com.app.tennis.PlayerToRegister;
+import com.app.tennis.PlayerToSave;
 import com.app.tennis.service.PlayerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -60,20 +60,22 @@ public class PlayerController {
 
     })
     @PostMapping
-    public Player createPlayer(@Valid @RequestBody PlayerToRegister playerToRegister) {
-        return playerService.create(playerToRegister);
+    public Player createPlayer(@Valid @RequestBody PlayerToSave PlayerToSave) {
+        return playerService.create(PlayerToSave);
     }
 
     @Operation(summary = "Updates a player", description = "Updates a player")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Updated player",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Player.class))})
-
+                            schema = @Schema(implementation = Player.class))}),
+            @ApiResponse(responseCode = "404", description = "Player with specified lastname was not found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Error.class))}),
     })
     @PutMapping
-    public Player updatePlayer(@Valid @RequestBody Player player) {
-        return player;
+    public Player updatePlayer(@Valid @RequestBody PlayerToSave playerToSave) {
+        return playerService.update(playerToSave);
     }
 
     @Operation(summary = "Deletes a player", description = "Deletes a player")
