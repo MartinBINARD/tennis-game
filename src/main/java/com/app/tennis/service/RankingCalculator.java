@@ -1,6 +1,7 @@
 package com.app.tennis.service;
 
 import com.app.tennis.Player;
+import com.app.tennis.PlayerList;
 import com.app.tennis.PlayerToSave;
 import com.app.tennis.Rank;
 
@@ -11,21 +12,28 @@ import java.util.List;
 public class RankingCalculator {
 
     private final List<Player> currentPlayersRanking;
-    private final PlayerToSave PlayerToSave;
+    private final PlayerToSave playerToSave;
 
-    public RankingCalculator(List<Player> currentPlayersRanking, PlayerToSave PlayerToSave) {
+    public RankingCalculator(List<Player> currentPlayersRanking, PlayerToSave playerToSave) {
         this.currentPlayersRanking = currentPlayersRanking;
-        this.PlayerToSave = PlayerToSave;
+        this.playerToSave = playerToSave;
+    }
+
+    public RankingCalculator(List<Player> currentPlayersRanking) {
+        this.currentPlayersRanking = currentPlayersRanking;
+        this.playerToSave = null;
     }
 
     public List<Player> getNewPlayersRanking() {
         List<Player> newRankingList = new ArrayList<>(currentPlayersRanking);
-        newRankingList.add(new Player(
-                PlayerToSave.firstName(),
-                PlayerToSave.lastName(),
-                PlayerToSave.birthDate(),
-                new Rank(999999999, PlayerToSave.points())
-        ));
+        if (playerToSave != null) {
+            newRankingList.add(new Player(
+                    playerToSave.firstName(),
+                    playerToSave.lastName(),
+                    playerToSave.birthDate(),
+                    new Rank(999999999, playerToSave.points())
+            ));
+        }
 
         newRankingList.sort((player1, player2) -> Integer.compare(player2.rank().points(), player1.rank().points()));
 
@@ -41,6 +49,9 @@ public class RankingCalculator {
             );
             updatedPlayers.add(updatedPlayer);
         }
+
+        PlayerList.ALL = updatedPlayers;
+
         return updatedPlayers;
     }
 }
