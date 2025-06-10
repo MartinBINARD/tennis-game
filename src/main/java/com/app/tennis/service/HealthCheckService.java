@@ -1,6 +1,6 @@
 package com.app.tennis.service;
 
-import com.app.tennis.repository.HealthCheckRepository;
+import com.app.tennis.data.HealthCheckRepository;
 import com.app.tennis.ApplicationStatus;
 import com.app.tennis.HealthCheck;
 import org.springframework.beans.factory.annotation.Autowired;

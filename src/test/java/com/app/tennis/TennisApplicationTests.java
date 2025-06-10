@@ -1,6 +1,6 @@
 package com.app.tennis;
 
-import com.app.tennis.repository.HealthCheckRepository;
+import com.app.tennis.data.HealthCheckRepository;
 import com.app.tennis.service.HealthCheckService;
 import com.app.tennis.web.HealthCheckController;
 import org.assertj.core.api.Assertions;
