@@ -88,13 +88,15 @@ public class PlayerService {
     }
 
     public void delete(String lastName) {
-//        Player playerToDelete = getByLastName(lastName);
-//
-//        PlayerList.ALL.stream()
-//                .filter(player -> !player.lastName().equals(lastName))
-//                .toList();
-//
-//        RankingCalculator rankingCalculator = new RankingCalculator(PlayerList.ALL);
-//        rankingCalculator.getNewPlayersRanking();
+        Optional<PlayerEntity> playerDelete = playerRepository.findOneByLastNameIgnoreCase(lastName);
+        if (playerDelete.isEmpty()) {
+            throw new PlayerNotFoundException(lastName);
+        }
+
+        playerRepository.delete(playerDelete.get());
+
+        RankingCalculator rankingCalculator = new RankingCalculator(playerRepository.findAll());
+        List<PlayerEntity> newRanking = rankingCalculator.getNewPlayersRanking();
+        playerRepository.saveAll(newRanking);
     }
 }
